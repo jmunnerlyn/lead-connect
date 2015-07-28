@@ -90,7 +90,7 @@ function detectCallInProcess($vendor_events){
 }
 
 function connectCallback($name, $account_name, $params, $live){
-    if ($live == "true"){
+    if (urldecode($name) == NULL){
         ?>
         <Say>Hello. This is the callback you requested for the prospect who called from <?php echo $account_name?>.</Say>    
         <?php
