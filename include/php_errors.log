@@ -1,0 +1,12 @@
+[20-Jul-2015 20:41:41 UTC] PHP Warning:  require_once(include/entity/Account.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php on line 3
+[20-Jul-2015 20:41:41 UTC] PHP Stack trace:
+[20-Jul-2015 20:41:41 UTC] PHP   1. {main}() /home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php:0
+[20-Jul-2015 20:41:41 UTC] PHP Fatal error:  require_once(): Failed opening required 'include/entity/Account.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php on line 3
+[20-Jul-2015 20:41:41 UTC] PHP Stack trace:
+[20-Jul-2015 20:41:41 UTC] PHP   1. {main}() /home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php:0
+[20-Jul-2015 20:42:26 UTC] PHP Warning:  require_once(/include/entity/Account.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php on line 3
+[20-Jul-2015 20:42:26 UTC] PHP Stack trace:
+[20-Jul-2015 20:42:26 UTC] PHP   1. {main}() /home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php:0
+[20-Jul-2015 20:42:26 UTC] PHP Fatal error:  require_once(): Failed opening required '/include/entity/Account.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php on line 3
+[20-Jul-2015 20:42:26 UTC] PHP Stack trace:
+[20-Jul-2015 20:42:26 UTC] PHP   1. {main}() /home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php:0
