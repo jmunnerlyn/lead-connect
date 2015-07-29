@@ -9,9 +9,8 @@ require_once("entity/Prospect.php");
 require_once("entity/Inquiry.php");
 $service = new SimplePdoLeadConnectService();
 
-$sid = $_REQUEST['CallSid'];
-
 if (isset($_REQUEST['To'])){
+	$sid = $_REQUEST['CallSid'];
     $live = "true";
     $phone = substr($_REQUEST['From'], -10);
     $name = NULL;
