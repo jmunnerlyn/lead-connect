@@ -18,14 +18,14 @@ if (array_key_exists('id', $_GET) && $_GET['id']) {
 <form method="post" action="_saveVendor.php">
     <p>
     Name:<br />
-    <input type="text" name="name" <?php if (array_key_exists('id', $_GET) && $_GET['id'])?>value="<?php echo $vendor->name?>"/>
+    <input type="text" name="name" <?php if (array_key_exists('id', $_GET) && $_GET['id']){?>value="<?php echo $vendor->name;}?>"/>
     </p>
     Phone:<br />
-    <input type="text" name="phone" <?php if (array_key_exists('id', $_GET) && $_GET['id'])?>value="<?php echo $vendor->phone?>"/>
+    <input type="text" name="phone" <?php if (array_key_exists('id', $_GET) && $_GET['id']){?>value="<?php echo $vendor->phone;}?>"/>
     </p>
     </p>
     Email:<br />
-    <input type="text" name="email" <?php if (array_key_exists('id', $_GET) && $_GET['id'])?>value="<?php echo $vendor->email?>"/>
+    <input type="text" name="email" <?php if (array_key_exists('id', $_GET) && $_GET['id']){?>value="<?php echo $vendor->email;}?>"/>
     </p>
     <input type="hidden" name="account_id" value="<?php echo $_GET['account_id']?>" />
     <?php
