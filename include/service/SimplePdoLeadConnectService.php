@@ -9,12 +9,20 @@ require_once("entity/Event.php");
 
 class SimplePdoLeadConnectService implements LeadConnectService {
     
-    private static $servername = "0.0.0.0";
+    /*
+    //Connection parameters for production
     private static $username = "root";
     private static $password = "LeadConnect1!";
     private static $database = "leadconnect";
+    */
+    
+    // Connection parameters for local
+    private static $username = "jamesmunnerlyn";
+    private static $password = "";
+    private static $database = "c9";
+    
+    private static $servername = "0.0.0.0";
     private static $dbport = 3306;
-
 	private $conn = null;
 
 	private function getConnection() {
