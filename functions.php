@@ -1,6 +1,6 @@
 <?php
 function groupEventsByVendor($events){
-    require_once("/home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php");
+    require_once("service/SimplePdoLeadConnectService.php");
 
     $vendor_events = array();
     
@@ -15,11 +15,11 @@ function groupEventsByVendor($events){
 }  
 
 function initiateCallbacks($vendor_events){
-    require_once("/home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php");
+    require_once("service/SimplePdoLeadConnectService.php");
     $service = new SimplePdoLeadConnectService();
     
     // Include the Twilio PHP library
-    require '/home/ubuntu/workspace/vendor/twilio-php-master/Services/Twilio.php';
+    require 'twilio-php-master/Services/Twilio.php';
          
     // Twilio REST API version
     $version = "2010-04-01";
@@ -43,7 +43,7 @@ function initiateCallbacks($vendor_events){
                     $token = $account->api_key;
                     $client = new Services_Twilio($sid, $token, $version);
     
-                    $call = $client->account->calls->create($account->phone,"+1".$vendor->phone,'https://lead-connect-jamesmunnerlyn.c9.io/vendor-connect.php?phone='.$phone.'&name='.$name.'&inquiry-key='.$inquiry_key.'&vendor-id='.$vendor->id.'&callback=true');
+                    $call = $client->account->calls->create($account->phone,'+1'.$vendor->phone,'http://'.$_SERVER["HTTP_HOST"].'/vendor-connect.php?phone='.$phone.'&name='.$name.'&inquiry-key='.$inquiry_key.'&vendor-id='.$vendor->id.'&callback=true');
                     $call_initiated = 1;
                 }
             }   
@@ -52,8 +52,8 @@ function initiateCallbacks($vendor_events){
 }
 
 function saveEvent($type, $vendor_id, $inquiry_id){
-    require_once("/home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php");
-    require_once("/home/ubuntu/workspace/include/entity/Event.php");
+    require_once("service/SimplePdoLeadConnectService.php");
+    require_once("entity/Event.php");
     $service = new SimplePdoLeadConnectService();
     $e = new Event();
     $e->event = $type;
@@ -72,7 +72,7 @@ function scheduleCallback($params){
 
 function callProspect($phone, $params){
     ?>
-    <Dial action="https://lead-connect-jamesmunnerlyn.c9.io/event.php?<?php echo $params?>">+1<?php echo $phone?></Dial>
+    <Dial action="http://<?php echo $_SERVER['HTTP_HOST']?>/event.php?<?php echo $params?>">+1<?php echo $phone?></Dial>
     <Say>The call failed or the remote party hung up. Goodbye.</Say>
     <?php
 }
@@ -137,7 +137,7 @@ function connectCall($name, $account_name, $params, $live){
 function connectConference($sid, $params){
     ?>
     <Say>Connecting.</Say>
-    <Dial action="https://lead-connect-jamesmunnerlyn.c9.io/event.php?<?php echo $params?>">
+    <Dial action="http://<?php echo $_SERVER['HTTP_HOST']?>/event.php?<?php echo $params?>">
         <Conference><?php echo $sid?></Conference>
     </Dial>
     <?php

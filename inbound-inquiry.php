@@ -2,11 +2,11 @@
 header("content-type: text/xml");
 echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 
-require_once("/home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php");
-require_once("/home/ubuntu/workspace/include/entity/Account.php");
-require_once("/home/ubuntu/workspace/include/entity/Vendor.php");
-require_once("/home/ubuntu/workspace/include/entity/Prospect.php");
-require_once("/home/ubuntu/workspace/include/entity/Inquiry.php");
+require_once("service/SimplePdoLeadConnectService.php");
+require_once("entity/Account.php");
+require_once("entity/Vendor.php");
+require_once("entity/Prospect.php");
+require_once("entity/Inquiry.php");
 $service = new SimplePdoLeadConnectService();
 
 $sid = $_REQUEST['CallSid'];
@@ -53,7 +53,7 @@ $i->note = $note;
 
 $service->saveInquiry($i);
 
-require '/home/ubuntu/workspace/vendor/twilio-php-master/Services/Twilio.php';
+require 'twilio-php-master/Services/Twilio.php';
 $version = "2010-04-01";
 $sid = 'AC3b2e8a3fabcbfe627c092046e3023ce4';
 $token = $account->api_key;
@@ -66,7 +66,7 @@ foreach ($vendors as $vendor){
     $client = new Services_Twilio($sid, $token, $version);
     
     try {
-        $call = $client->account->calls->create($phonenumber,"+1".$vendor->phone,'https://lead-connect-jamesmunnerlyn.c9.io/vendor-connect.php?phone='.$phone.'&name='.$name.'&inquiry-key='.$inquiry_key.'&vendor-id='.$vendor->id.'&live='.$live.'&sid='.$sid);
+        $call = $client->account->calls->create($phonenumber,'+1'.$vendor->phone,'http://'.$_SERVER["HTTP_HOST"].'/vendor-connect.php?phone='.$phone.'&name='.$name.'&inquiry-key='.$inquiry_key.'&vendor-id='.$vendor->id.'&live='.$live.'&sid='.$sid);
     } catch (Exception $e) {
         echo 'Error: ' . $e->getMessage();
     }

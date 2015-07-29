@@ -2,9 +2,9 @@
 header("content-type: text/xml");
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 
-require_once("/home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php");
-require_once("/home/ubuntu/workspace/include/entity/Event.php");
-require_once("/home/ubuntu/workspace/functions.php");
+require_once("service/SimplePdoLeadConnectService.php");
+require_once("entity/Event.php");
+require_once("functions.php");
 
 $service = new SimplePdoLeadConnectService();
 $inquiry = $service->loadInquiry($_GET['inquiry-key']);

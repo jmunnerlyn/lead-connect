@@ -2,10 +2,10 @@
 header("content-type: text/xml");
 echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 
-require_once("/home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php");
-require_once("/home/ubuntu/workspace/include/entity/Inquiry.php");
-require_once("/home/ubuntu/workspace/include/entity/Event.php");
-require_once("/home/ubuntu/workspace/functions.php");
+require_once("service/SimplePdoLeadConnectService.php");
+require_once("entity/Inquiry.php");
+require_once("entity/Event.php");
+require_once("functions.php");
 
 $sid = $_GET['sid'];
 $live = $_GET['live'];

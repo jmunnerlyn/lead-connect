@@ -1,7 +1,7 @@
 <?php
-require_once("/home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php");
-require_once("/home/ubuntu/workspace/include/entity/Account.php");
-require_once("/home/ubuntu/workspace/include/entity/Vendor.php");
+require_once("service/SimplePdoLeadConnectService.php");
+require_once("entity/Account.php");
+require_once("entity/Vendor.php");
 
 if (array_key_exists('id', $_GET) && $_GET['id']) {
     $service = new SimplePdoLeadConnectService();
