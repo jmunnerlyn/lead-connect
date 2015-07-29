@@ -7,7 +7,7 @@
     </head>
     <body>
         <h1>Test Form</h1>
-        <form action="https://lead-connect-jamesmunnerlyn.c9.io/test-thank-you.php" method="post">
+        <form action="http://<?php echo $_SERVER['HTTP_HOST']?>/test-thank-you.php" method="post">
             <p>Name: 
             <input type="text" name="name" />
             </p>

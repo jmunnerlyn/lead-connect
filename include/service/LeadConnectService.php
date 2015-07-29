@@ -1,7 +1,7 @@
 <?php
-require_once("/home/ubuntu/workspace/include/entity/Account.php");
-require_once("/home/ubuntu/workspace/include/entity/Vendor.php");
-require_once("/home/ubuntu/workspace/include/entity/Prospect.php");
+require_once("entity/Account.php");
+require_once("entity/Vendor.php");
+require_once("entity/Prospect.php");
 
 interface LeadConnectService {
 	public function saveAccount(Account $account);

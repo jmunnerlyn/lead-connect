@@ -9,7 +9,7 @@
 </html>
 <?php
 //set POST variables
-$url = 'https://lead-connect-jamesmunnerlyn.c9.io/inbound-inquiry.php';
+$url = 'http://'.$_SERVER["HTTP_HOST"].'/inbound-inquiry.php';
 $fields = array(
             // Add the fields you want to pass through
             // Remove stripslashes if get_magic_quotes_gpc() returns 0.

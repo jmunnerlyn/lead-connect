@@ -1,11 +1,11 @@
 <?php
-require_once("/home/ubuntu/workspace/include/service/LeadConnectService.php");
-require_once("/home/ubuntu/workspace/include/entity/Account.php");
-require_once("/home/ubuntu/workspace/include/entity/Vendor.php");
-require_once("/home/ubuntu/workspace/include/entity/Prospect.php");
-require_once("/home/ubuntu/workspace/include/entity/Inquiry.php");
-require_once("/home/ubuntu/workspace/include/entity/ProspectInquiry.php");
-require_once("/home/ubuntu/workspace/include/entity/Event.php");
+require_once("service/LeadConnectService.php");
+require_once("entity/Account.php");
+require_once("entity/Vendor.php");
+require_once("entity/Prospect.php");
+require_once("entity/Inquiry.php");
+require_once("entity/ProspectInquiry.php");
+require_once("entity/Event.php");
 
 class SimplePdoLeadConnectService implements LeadConnectService {
     

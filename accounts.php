@@ -1,6 +1,6 @@
 <?php
-require_once("/home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php");
-require_once("/home/ubuntu/workspace/include/entity/Account.php");
+require_once("service/SimplePdoLeadConnectService.php");
+require_once("entity/Account.php");
 
 $service = new SimplePdoLeadConnectService;
 

@@ -2,9 +2,9 @@
 header("content-type: text/xml");
 echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 
-require_once("/home/ubuntu/workspace/include/service/SimplePdoLeadConnectService.php");
-require_once("/home/ubuntu/workspace/include/entity/Inquiry.php");
-require_once("/home/ubuntu/workspace/functions.php");
+require_once("service/SimplePdoLeadConnectService.php");
+require_once("entity/Inquiry.php");
+require_once("functions.php");
 
 // if the caller pressed anything but 1 send them back
 if($_REQUEST['Digits'] != '1') {
