@@ -15,6 +15,8 @@ class SimplePdoLeadConnectService implements LeadConnectService {
     private static $database = "leadconnect";
     private static $dbport = 3306;
 
+	private $conn = null;
+
 	private function getConnection() {
 		return new PDO(
 		    "mysql:dbname=" . self::$database . ";host=" . self::$servername . ";port=" . self::$dbport,self::$username,self::$password,
