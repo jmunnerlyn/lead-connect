@@ -8,7 +8,7 @@ interface LeadConnectService {
 	public function loadAccounts();
 	public function loadAccount($id);
 	public function loadAccountFromPhone($phone);
-	public function loadAccountFromKey($key);
+	public function loadAccountFromNumberSid($number_sid);
 	public function deleteAccount($id);
 	
 	public function saveVendor(Vendor $vendor);
@@ -19,6 +19,8 @@ interface LeadConnectService {
 	public function saveProspect(Prospect $prospect);
 	public function deleteProspect($id);
 	public function loadProspect($id);
+	public function loadProspectInquiries($prospect_id);
+	public function loadAccountProspects($account_id);
 	public function loadProspectByPhone($phone, $account_id);
 	
 	public function saveInquiry(Inquiry $inquiry);

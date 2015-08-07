@@ -37,7 +37,7 @@ class SimplePdoLeadConnectService implements LeadConnectService {
 	
 	public function loadAccounts(){
 		if ($this->conn == null) $this->conn = $this->getConnection();
-		$st = $this->conn->prepare("SELECT id, name, host, phone, api_key FROM account");
+		$st = $this->conn->prepare("SELECT id, name, host, phone, api_key, number_sid FROM account");
 		$result = $st->execute();
 		$rows = $st->fetchAll(PDO::FETCH_ASSOC);
 		$result = Array();
@@ -49,7 +49,7 @@ class SimplePdoLeadConnectService implements LeadConnectService {
 	
 	public function loadAccount($id) {
 		if ($this->conn == null) $this->conn = $this->getConnection();
-		$st = $this->conn->prepare("SELECT id, name, host, phone, api_key FROM account WHERE id=:id");
+		$st = $this->conn->prepare("SELECT id, name, host, phone, api_key, number_sid FROM account WHERE id=:id");
 		$result = $st->execute(Array("id"=> $id));
 		if (!$result) return null;
 
@@ -61,7 +61,7 @@ class SimplePdoLeadConnectService implements LeadConnectService {
 	
 	public function loadAccountFromPhone($phone) {
 		if ($this->conn == null) $this->conn = $this->getConnection();
-		$st = $this->conn->prepare("SELECT id, name, host, phone, api_key FROM account WHERE phone=:phone");
+		$st = $this->conn->prepare("SELECT id, name, host, phone, api_key, number_sid FROM account WHERE phone=:phone");
 		$result = $st->execute(Array("phone"=> $phone));
 		if (!$result) return null;
 
@@ -71,10 +71,10 @@ class SimplePdoLeadConnectService implements LeadConnectService {
 		return $this->inflateAccount($row);
 	}
 	
-	public function loadAccountFromKey($api_key) {
+	public function loadAccountFromNumberSid($number_sid) {
 		if ($this->conn == null) $this->conn = $this->getConnection();
-		$st = $this->conn->prepare("SELECT id, name, host, phone, api_key FROM account WHERE api_key=:api_key");
-		$result = $st->execute(Array("api_key"=> $api_key));
+		$st = $this->conn->prepare("SELECT id, name, host, phone, api_key, number_sid FROM account WHERE number_sid=:number_sid");
+		$result = $st->execute(Array("number_sid"=> $number_sid));
 		if (!$result) return null;
 
 		$row = $st->fetch(PDO::FETCH_ASSOC);
@@ -101,25 +101,27 @@ class SimplePdoLeadConnectService implements LeadConnectService {
 
 	private function _createAccount(Account $account) {
 		if ($this->conn == null) $this->conn = $this->getConnection();
-		$st = $this->conn->prepare("INSERT INTO account (name, host, phone, api_key) VALUES (:name, :host, :phone, :api_key)");
+		$st = $this->conn->prepare("INSERT INTO account (name, host, phone, api_key, number_sid) VALUES (:name, :host, :phone, :api_key, :number_sid)");
 		$result = $st->execute(Array(
 			"name" => $account->name,
 			"phone" => $account->phone,
 			"host" => $account->host,
 			"api_key" => $account->api_key,
+			"number_sid" => $account->number_sid
 			));
 		return true;
 	}
 
 	private function _updateAccount(Account $account) {
 		if ($this->conn == null) $this->conn = $this->getConnection();
-		$st = $this->conn->prepare("UPDATE account SET name=:name, phone=:phone, host=:host, api_key=:api_key WHERE id=:id");
+		$st = $this->conn->prepare("UPDATE account SET name=:name, phone=:phone, host=:host, api_key=:api_key, number_sid=:number_sid WHERE id=:id");
 		$result = $st->execute(Array(
 			"id" => $account->id,
 			"name" => $account->name,
 			"phone" => $account->phone,
 			"host" => $account->host,
-			"api_key" => $account->api_key
+			"api_key" => $account->api_key,
+			"number_sid" => $account->number_sid
 			));
 		return true;
 	}
@@ -131,6 +133,7 @@ class SimplePdoLeadConnectService implements LeadConnectService {
 		$a->host = $row['host'];
 		$a->phone = $row['phone'];
 		$a->api_key = $row['api_key'];
+		$a->number_sid = $row['number_sid'];
 		return $a;
 	}
 	
@@ -268,6 +271,18 @@ class SimplePdoLeadConnectService implements LeadConnectService {
 		return $this->inflateProspect($row);
 	}
 	
+	public function loadAccountProspects($account_id){
+		if ($this->conn == null) $this->conn = $this->getConnection();
+		$st = $this->conn->prepare("SELECT id, account_id, name, email, phone FROM prospect WHERE account_id=:account_id");
+		$result = $st->execute(Array("account_id"=> $account_id));
+		$rows = $st->fetchAll(PDO::FETCH_ASSOC);
+		$result = Array();
+		foreach ($rows as $row) {
+			$result[] = $this->inflateProspect($row);
+		}
+		return $result;
+	}
+	
 	public function loadProspectByPhone($phone, $account_id) {
 		if ($this->conn == null) $this->conn = $this->getConnection();
 		$st = $this->conn->prepare("SELECT id, name, email, phone, account_id FROM prospect WHERE phone=:phone AND account_id=:account_id");
@@ -324,12 +339,13 @@ class SimplePdoLeadConnectService implements LeadConnectService {
 		$i->status = $row['status'];
 		$i->note = $row['note'];
 		$i->inquiry_key = $row['inquiry_key'];
+		$i->timestamp = $row['timestamp'];
 		return $i;
 	}
 	
 	public function loadInquiry($inquiry_key) {
 		if ($this->conn == null) $this->conn = $this->getConnection();
-		$st = $this->conn->prepare("SELECT id, prospect_id, status, note, inquiry_key FROM inquiry WHERE inquiry_key=:inquiry_key");
+		$st = $this->conn->prepare("SELECT id, prospect_id, status, note, inquiry_key, timestamp FROM inquiry WHERE inquiry_key=:inquiry_key");
 		$result = $st->execute(Array("inquiry_key"=> $inquiry_key));
 		if (!$result) return null;
 
@@ -337,6 +353,18 @@ class SimplePdoLeadConnectService implements LeadConnectService {
 		if (!$row) return null;
 
 		return $this->inflateInquiry($row);
+	}
+	
+	public function loadProspectInquiries($prospect_id){
+		if ($this->conn == null) $this->conn = $this->getConnection();
+		$st = $this->conn->prepare("SELECT id, prospect_id, status, note, inquiry_key, timestamp FROM inquiry WHERE prospect_id=:prospect_id");
+		$result = $st->execute(Array("prospect_id"=> $prospect_id));
+		$rows = $st->fetchAll(PDO::FETCH_ASSOC);
+		$result = Array();
+		foreach ($rows as $row) {
+			$result[] = $this->inflateInquiry($row);
+		}
+		return $result;
 	}
 	
 	public function saveEvent(Event $event){
@@ -410,6 +438,7 @@ class SimplePdoLeadConnectService implements LeadConnectService {
 		$pi->status = $row['status'];
 		$pi->note = $row['note'];
 		$pi->inquiry_key = $row['inquiry_key'];
+		$pi->timestamp = $row['timestamp'];
 		$pi->name = $row['name'];
 		$pi->email = $row['email'];
 		$pi->phone = $row['phone'];

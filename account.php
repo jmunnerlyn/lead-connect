@@ -35,6 +35,10 @@ if (array_key_exists('id', $_GET) && $_GET['id']) {
     <input type="text" name="api_key" <?php if (array_key_exists('id', $_GET) && $_GET['id']){?>value="<?php echo $account->api_key;}?>"/>
     </p>
     <p>
+    Number SID:<br />
+    <input type="text" name="number_sid" <?php if (array_key_exists('id', $_GET) && $_GET['id']){?>value="<?php echo $account->number_sid;}?>"/>
+    </p>
+    <p>
     <?php
     if (array_key_exists('id', $_GET) && $_GET['id']) {
         ?>

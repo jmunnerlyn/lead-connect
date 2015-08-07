@@ -5,5 +5,6 @@ class Account {
 	public $host;
 	public $phone;
 	public $api_key;
+	public $number_sid;
 }
 ?>

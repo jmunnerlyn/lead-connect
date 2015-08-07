@@ -17,6 +17,7 @@ $a->name = $_POST['name'];
 $a->host = $_POST['host'];
 $a->phone = $_POST['phone'];
 $a->api_key = $_POST['api_key'];
+$a->number_sid = $_POST['number_sid'];
 
 if ($service->saveAccount($a)) {
 	header("Location: accounts.php?message=Saved");

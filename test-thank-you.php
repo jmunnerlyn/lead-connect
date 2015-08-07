@@ -14,7 +14,7 @@ $fields = array(
             // Add the fields you want to pass through
             // Remove stripslashes if get_magic_quotes_gpc() returns 0.
             'phone'=>urlencode(stripslashes($_POST['phone'])),
-            'key'=>urlencode(stripslashes($_POST['key'])),
+            'number_sid'=>urlencode(stripslashes($_POST['number_sid'])),
             'name'=>urlencode(stripslashes($_POST['name'])),
             'note'=>urlencode(stripslashes($_POST['note'])),
             'email'=>urlencode(stripslashes($_POST['email']))

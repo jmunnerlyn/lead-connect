@@ -19,13 +19,13 @@ if (isset($_REQUEST['To'])){
     $account = $service->loadAccountFromPhone(substr($_REQUEST['To'], -10));
 }else{
     $live = "false";
-    $key = $_POST['key'];
+    $number_sid = $_POST['number_sid'];
     $phone = $_POST['phone'];
     $name = $_POST['name'];
     $email = $_POST['email'];
     $note = $_POST['note'];
     
-    $account = $service->loadAccountFromKey($key);
+    $account = $service->loadAccountFromNumberSid($number_sid);
 }
 
 $vendors = $service->loadAccountVendors($account->id);
@@ -54,15 +54,15 @@ $service->saveInquiry($i);
 
 require 'twilio-php-master/Services/Twilio.php';
 $version = "2010-04-01";
-$sid = 'AC3b2e8a3fabcbfe627c092046e3023ce4';
-$token = $account->api_key;
+$account_sid = 'AC3b2e8a3fabcbfe627c092046e3023ce4';
+$token = '7a64549301ead0ae9fcfdc6f4d5cd5f4';
          
 $phonenumber = $account->phone; 
 
 $name = urlencode($name);
 
 foreach ($vendors as $vendor){
-    $client = new Services_Twilio($sid, $token, $version);
+    $client = new Services_Twilio($account_sid, $token, $version);
     
     try {
         $call = $client->account->calls->create($phonenumber,'+1'.$vendor->phone,'http://'.$_SERVER["HTTP_HOST"].'/vendor-connect.php?phone='.$phone.'&name='.$name.'&inquiry-key='.$inquiry_key.'&vendor-id='.$vendor->id.'&live='.$live.'&sid='.$sid);

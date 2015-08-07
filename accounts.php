@@ -28,7 +28,8 @@ $accounts = $service->loadAccounts();
                 <th>Name</th>
                 <th>Host</th>
                 <th>Phone</th>
-                <th>API Key</th>
+                <th>Number Sid</th>
+                <th>Prospects</th>
                 <th>Action</th>
             <?php
             foreach ($accounts as $account){
@@ -37,7 +38,8 @@ $accounts = $service->loadAccounts();
                     <td><a href="account.php?id=<?php echo $account->id;?>"><?php echo $account->name;?></a></td>
                     <td><?php echo $account->host?></td>
                     <td><?php echo $account->phone?></td>
-                    <td><?php echo $account->api_key?></td>
+                    <td><?php echo $account->number_sid?></td>
+                    <td><a href="inquiries.php?account_id=<?php echo $account->id?>">Inquiries</a></td>
                     <td><a href="_deleteAccount.php?id=<?php echo $account->id?>" onclick="return confirm('Are you sure?')">Delete</a></td>
                 </tr>
                 <?php
