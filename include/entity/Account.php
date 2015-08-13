@@ -6,5 +6,6 @@ class Account {
 	public $phone;
 	public $api_key;
 	public $number_sid;
+	public $greeting;
 }
 ?>
